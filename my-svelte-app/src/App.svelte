@@ -52,3 +52,62 @@
   }
 </script>
 
+<div class="container" style="background: {moodGradient}">
+  
+  {#if !showGreeting}
+    <!-- FORM VIEW -->
+    <div class="card">
+      <h1>How are you feeling today?</h1>
+
+      <!-- Name Input -->
+      <div class="input-group">
+        <label for="name">Your Name</label>
+        <input
+          id="name"
+          type="text"
+          bind:value={name}
+          placeholder="Enter your name..."
+        />
+      </div>
+
+      <!-- Mood Selector -->
+      <div class="mood-group">
+        <label>Your Mood</label>
+        <div class="mood-buttons">
+          {#each moods as m}
+            <button
+              class="mood-btn"
+              class:selected={mood === m.id}
+              on:click={() => mood = m.id}
+            >
+              <span class="emoji">{m.emoji}</span>
+              <span class="label">{m.label}</span>
+            </button>
+          {/each}
+        </div>
+      </div>
+
+      <!-- Greet Button -->
+      <button
+        class="greet-btn"
+        disabled={!name || !mood}
+        on:click={handleGreet}
+      >
+        Greet Me! 🎉
+      </button>
+    </div>
+
+  {:else}
+    <!-- GREETING VIEW -->
+    <div class="greeting">
+      <div class="emoji-large">
+        {moods.find(m => m.id === mood)?.emoji}
+      </div>
+      <h1 class="message">{greetingMessage}</h1>
+      <button class="reset-btn" on:click={handleReset}>
+        Change Mood
+      </button>
+    </div>
+  {/if}
+  
+</div>
