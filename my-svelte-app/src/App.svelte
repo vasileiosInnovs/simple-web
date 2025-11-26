@@ -71,8 +71,8 @@
       </div>
 
       <!-- Mood Selector -->
-      <div class="mood-group">
-        <label>Your Mood</label>
+      <div class="input-group">
+        <label for = "mood">Your Mood</label>
         <div class="mood-buttons">
           {#each moods as m}
             <button
