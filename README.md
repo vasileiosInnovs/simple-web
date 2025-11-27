@@ -3,11 +3,11 @@
 A simple beginner-friendly web app built using Go (Golang) and HTML templates.
 Users enter their name and mood, and the app generates a personalized greeting with:
 
-Dynamic emoji
+- Dynamic emoji
 
-Mood-based message
+- Mood-based message
 
-Mood-based background color
+- Mood-based background color
 
 This project demonstrates how to build a minimal Go web server with template rendering — perfect for beginners.
 
@@ -24,11 +24,15 @@ This project demonstrates how to build a minimal Go web server with template ren
 ⚡ Very lightweight — no external frameworks needed
 
 ## 🛠️ Tech Stack
-Component	Technology
-Language	Go (Golang)
-Templates	Go html/template
+
+|Component |	Technology  |
+|----------|----------------|
+|Language  |   Go (Golang)  |
+|Templates |Go html/template|
+
 Editor	VS Code + Go Extension
-Browser	Any modern browser
+
+Browser - Any modern browser
 
 ## 📁 Project Structure
 ```
@@ -72,6 +76,27 @@ Open the app in your browser:
 
 ## 🧪 Minimal Working Example (main.go)
 
+### Step 1 — Open the form
+
+Navigate to /
+You’ll see:
+
+- A text input for your name
+
+- A dropdown or buttons to select your mood
+
+### Step 2 — Submit
+
+The app checks:
+
+- Name
+
+- Mood
+
+- Current time (Morning, Afternoon, Evening)
+
+Background color adapts based on mood.
+
 Here’s what the core logic does:
 
 Handles / route → displays form
@@ -101,16 +126,19 @@ Your happiness is contagious today! ✨
 ```
 
 ## 🛑 Common Issues & Fixes
-### ❌ 1. Template not found
-panic: open templates/form.html: no such file or directory
-
+### ❗ Template not found
+Ensure folder structure is exactly:
+```
+templates/form.html
+templates/greeting.html
+```
 
 ✔️ Make sure you run the project from the root folder:
 ```
 go run main.go
 ```
 
-### ❌ 2. Port 8080 already in use
+### ❗ Port 8080 already in use
 
 Find and kill the process:
 
@@ -125,6 +153,53 @@ Linux/Mac
 lsof -i :8080
 kill -9 <PID>
 ```
+
+### ❗ App won’t start
+
+Run:
+```
+go mod init mood-greeting-app
+go run main.go
+```
+
+### ❗ Page loads but no gradients
+
+Check your CSS inside greeting.html.
+
+### ❗ Blank page after submitting the form
+
+Confirm form field names match Go handler:
+```
+name="name"
+name="mood"
+```
+## 🤝 Contributing
+
+Contributions are welcome!
+To contribute:
+
+1. Fork the repository
+
+2. Create a new branch
+```
+git checkout -b feature-new-idea
+```
+
+3. Commit your changes
+
+4. Submit a pull request
+
+Please ensure your code is:
+
+- Clear
+
+- Documented
+
+- Tested (if applicable)
+
+## 📄 License
+
+This project is licensed under the MIT License, meaning you’re free to copy, modify, and distribute it under the same license.
 
 ## 📚 References
 
