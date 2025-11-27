@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"time"
@@ -20,7 +21,7 @@ type GreetingData struct {
 	Emoji      string
 	TimeOfDay  string
 	Message    string
-	Background string
+	Background template.CSS
 }
 
 // Get all available moods
@@ -124,18 +125,30 @@ func greetHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Prepare greeting data
 	timeOfDay := getTimeOfDay()
+
+	background := getBackgroundColor(mood)
+
+	fmt.Printf("Mood: %s\n", mood)
+	fmt.Printf("Background: %s\n", background)
+
 	data := GreetingData{
 		Name:       name,
 		Mood:       mood,
 		Emoji:      getMoodEmoji(mood),
 		TimeOfDay:  timeOfDay,
 		Message:    getGreetingMessage(name, mood, timeOfDay),
-		Background: getBackgroundColor(mood),
+		Background: template.CSS(getBackgroundColor(mood)),
 	}
+
+	// DEBUG: Print entire data struct
+	fmt.Printf("Data: %+v\n", data)
 
 	// Render greeting template
 	tmpl := template.Must(template.ParseFiles("templates/greeting.html"))
-	tmpl.Execute(w, data)
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		fmt.Printf("Template error: %v\n", err)
+	}
 }
 
 func main() {
